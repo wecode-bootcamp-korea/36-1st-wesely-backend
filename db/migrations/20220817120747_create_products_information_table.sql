@@ -1,12 +1,11 @@
 -- migrate:up
-CREATE TABLE orders(
+CREATE TABLE products_information(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  users_id INT NOT NULL,
-  orders_status_id INT NOT NULL,
+  stock INT NOT NULL DEFAULT 500,
+  sales INT NOT NULL DEFAULT 100,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 -- migrate:down
-DROP TABLE orders;
+DROP TABLE products_information;
