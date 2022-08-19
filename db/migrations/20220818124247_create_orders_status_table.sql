@@ -1,8 +1,8 @@
 -- migrate:up
-CREATE TABLE order_status(
+CREATE TABLE orders_status(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   status VARCHAR(300) NOT NULL DEFAULT "pending"
 );
 
 -- migrate:down
-DROP TABLE order_status;
+DROP TABLE orders_status;
