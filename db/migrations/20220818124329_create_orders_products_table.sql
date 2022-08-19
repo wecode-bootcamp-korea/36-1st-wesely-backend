@@ -2,7 +2,6 @@
 CREATE TABLE orders_products(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   cart_id INT NOT NULL,
-  order_id INT NOT NULL,
   product_id INT NOT NULL,
   quantity INT NOT NULL DEFAULT 1,
   total_price DECIMAL(6,0) NOT NULL,
