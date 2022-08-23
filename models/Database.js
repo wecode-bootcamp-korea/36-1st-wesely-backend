@@ -1,7 +1,7 @@
-const { DataSource } = require('typeorm');
+const { MySQLDataSource } = require('typeorm');
 
-const Database = new DataSource({
-	type: process.env.TYPEORM_CONNECTION,
+const MySQLDatabase = new MySQLDataSource({
+  type: process.env.TYPEORM_CONNECTION,
   host: process.env.TYPEORM_HOST,
   port: process.env.TYPEORM_PORT,
   username: process.env.TYPEORM_USERNAME,
@@ -20,5 +20,5 @@ const initialize = Database
 });
 
 module.exports = {
-  Database
+  MySQLDatabase
 }

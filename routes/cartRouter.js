@@ -5,7 +5,7 @@ const cartController = require('../controllers/cartController');
 
 const router = express.Router();
 
-router.get('/user/:user_id', cartController.listAll);
-router.delete('/:id', cartController.listDelete);
+router.get('/user/:user_id', cartController.getCartListAll);
+router.delete('/:id', cartController.deleteCartProduct);
 
 module.exports = { router };

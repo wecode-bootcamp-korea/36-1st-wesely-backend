@@ -1,4 +1,4 @@
-const { Database } = require("./Database");
+const { MySQLDatabase } = require("./MySQLDatabase");
 
 const errorFunc = (value, str) => {
   const error = new Error(str);
@@ -8,7 +8,7 @@ const errorFunc = (value, str) => {
 
 const cartListAll = async ( user_id ) => {
   try {
-    return await Database.query(
+    return await MySQLDatabase.query(
       `
       SELECT carts 
       FROM ( SELECT json_object
@@ -36,9 +36,9 @@ const cartListAll = async ( user_id ) => {
 	}	
 }
 
-const cartListDelete = async ( id ) => {
+const deleteCartList = async ( id ) => {
   try {
-    return await Database.query(
+    return await MySQLDatabase.query(
       `
       DELETE FROM carts c WHERE c.id = ${ id }
       `,
@@ -51,7 +51,7 @@ const cartListDelete = async ( id ) => {
 
 const cartCheckUser = (user_id) => {
   try {
-    return Database.query(
+    return MySQLDatabase.query(
       `
       SELECT EXISTS 
       (SELECT * FROM carts c 
@@ -66,6 +66,6 @@ const cartCheckUser = (user_id) => {
 
 module.exports = {
   cartListAll,
-  cartListDelete,
+  deleteCartList,
   cartCheckUser,
 }

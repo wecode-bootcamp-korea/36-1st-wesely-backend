@@ -1,10 +1,10 @@
 const cartServices = require('../services/cartServices');
 
-const listAll = async (req, res) => {
+const getCartListAll = async (req, res) => {
   const { user_id } = req.params;
   try{
-    const listAll = await cartServices.allList( user_id );
-      res.status(200).json(JSON.parse(Object.values(listAll[0])));
+    const getCartListAll = await cartServices.getCartListAll( user_id );
+      res.status(200).json(JSON.parse(Object.values(getCartListAll[0])));
   }
   catch(err) {
     console.log(err);
@@ -12,11 +12,11 @@ const listAll = async (req, res) => {
   }
 }
 
-const listDelete = async (req, res) => {
+const deleteCartProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const listDelete = await cartServices.deleteList( id );
-      res.status(204).json( {message: "DELETE SUCCESS"})
+    const deleteCartProduct = await cartServices.deleteCartProduct( id );
+      res.status(204).json( )
   }
   catch (err) {
     console.log(err);
@@ -24,10 +24,7 @@ const listDelete = async (req, res) => {
   }
 }
 
-
-
-
 module.exports = {
-  listAll,
-  listDelete,
+  getCartListAll,
+  deleteCartProduct,
 }
