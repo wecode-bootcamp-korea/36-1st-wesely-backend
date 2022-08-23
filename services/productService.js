@@ -4,8 +4,8 @@ const getAllProducts = async (offset, limit) => {
     return await productDao.getAllProducts(offset, limit);
 };
 
-const getProductsByCategory = async (category, offset, limit) => {
-    return await productDao.getProductsByCategory(category, offset, limit);
+const getProductsByCategory = async (categoryId, offset, limit) => {
+    return await productDao.getProductsByCategory(categoryId, offset, limit);
 };
 
 module.exports ={

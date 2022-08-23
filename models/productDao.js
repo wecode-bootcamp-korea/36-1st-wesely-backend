@@ -2,7 +2,8 @@ const {appDataSource} =require("./dataSource")
 
 const getAllProducts = async(offset, limit) =>{
     try{
-        return await appDataSource.query(`SELECT
+        return await appDataSource.query(`
+        SELECT
             COUNT(r.rating) AS countRating,
             AVG(r.rating) AS avgRating,
             p.id,
@@ -27,9 +28,10 @@ const getAllProducts = async(offset, limit) =>{
     }
 };
 
-const getProductsByCategory = async(category, offset, limit)=>{
+const getProductsByCategory = async(categoryId, offset, limit)=>{
     try{
-        return await appDataSource.query(`SELECT
+        return await appDataSource.query(`
+        SELECT
             COUNT(r.rating) AS countRating,
             AVG(r.rating) AS avgRating,
             p.id,
@@ -43,7 +45,7 @@ const getProductsByCategory = async(category, offset, limit)=>{
         FROM reviews r
         LEFT JOIN products p ON p.id=r.product_id
         LEFT JOIN products_information i ON r.product_id=i.id
-        WHERE p.category_id=${category}
+        WHERE p.category_id=${categoryId}
         GROUP BY product_id ORDER BY countRating DESC
         LIMIT ${limit} OFFSET ${offset}
         `);
