@@ -32,7 +32,7 @@ const cartListAll = async ( user_id ) => {
     )
   }
   catch (err) {
-		errorFunc(404, "INVALID_DATA_INPUT")
+    errorFunc(404, "INVALID_DATA_INPUT")
 	}	
 }
 
@@ -60,7 +60,7 @@ const cartCheckUser = (user_id) => {
       `
     )
   } catch{
-		errorFunc(404, "INVALID_DATA_INPUT")
+    errorFunc(404, "INVALID_DATA_INPUT")
   }
 }
 
