@@ -1,4 +1,4 @@
-const { MySQLDatabase } = require("./MySQLDatabase");
+const { MySQLDatabase } = require("./Database");
 
 const errorFunc = (value, str) => {
   const error = new Error(str);

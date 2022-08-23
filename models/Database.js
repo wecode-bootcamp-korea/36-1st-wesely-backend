@@ -1,6 +1,6 @@
-const { MySQLDataSource } = require('typeorm');
+const { DataSource } = require('typeorm');
 
-const MySQLDatabase = new MySQLDataSource({
+const MySQLDatabase = new DataSource({
   type: process.env.TYPEORM_CONNECTION,
   host: process.env.TYPEORM_HOST,
   port: process.env.TYPEORM_PORT,
@@ -9,7 +9,7 @@ const MySQLDatabase = new MySQLDataSource({
   database: process.env.TYPEORM_DATABASE
 })
 
-const initialize = Database
+const initialize = MySQLDatabase
 .initialize()
 .then(() => {
   console.log("DataSource has been initialized");
