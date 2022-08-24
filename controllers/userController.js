@@ -30,7 +30,7 @@ const login = async (req, res) => {
         }
         
         const loginResult = await userService.login(email, password);
-        return res.status(200).json({ token: loginResult });
+        return res.status(200).json({ token: loginResult, message : "SUCCESS_LOGIN"});
        
     } catch(err) {
         errorhandler(err, res);
@@ -42,7 +42,7 @@ const emailCheck = async (req, res) => {
         const { email } = req.body;
         const userName = await userService.emailCheck(email);
 
-        if(userName) return res.status(201).json({ message : "CONNECT_LOGIN", data1 : userName, data2 : email });
+        if(userName) return res.status(201).json({ message : "CONNECT_LOGIN", name : userName });
 
         else return res.status(200).json({ message : "CONNECT_SIGNUP" });
     } catch (err) {
