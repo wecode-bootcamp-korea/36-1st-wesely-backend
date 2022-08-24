@@ -6,12 +6,12 @@ const getCartListAll = async ( user_id ) => {
   const checkId = await cartDao.cartCheckUser( user_id )
   const cartIdCheck = await Number(Object.values(checkId[0])[0])
 
-  const productEnum = Object.freeze({
+  const cartEnum = Object.freeze({
     Exists: 1,
     notExists: 0
   });
 
-  if ( cartIdCheck == productEnum.notExists ) {
+  if ( cartIdCheck == cartEnum.notExists ) {
     const error = new Error( 'Cart empty' )
     error.statusCode = 409;
     throw error
