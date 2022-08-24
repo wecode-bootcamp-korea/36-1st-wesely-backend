@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE subscription(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  period INT NOT NULL DEFAULT 0
+  period varchar(200) NOT NULL 
 );
 
 -- migrate:down
