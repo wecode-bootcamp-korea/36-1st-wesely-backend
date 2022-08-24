@@ -57,7 +57,7 @@ const signUp = async (email, password, phone_number, name) => {
 
 const login = async (email, password) => {
 
-    const loginUser = await userDao.loginUser(email)
+    const loginUser = await userDao.getUserByEmail(email)
 
     const result = await bcrypt.compare(password, loginUser[0].password)
     if(!result) {

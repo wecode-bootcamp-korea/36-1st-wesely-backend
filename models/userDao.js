@@ -21,7 +21,7 @@ const createUser = async (email, hashedPassword, phone_number, name) => {
         errorHandler();
     }
 };
-const loginUser = async (email) => {
+const getUserByEmail = async (email) => {
     try {
         return await database.query(`
         SELECT  
@@ -81,5 +81,5 @@ const emailCheck = async(email) => {
 
 
 module.exports = {
-    createUser, loginUser, userCheck, emailCheck
+    createUser, getUserByEmail, userCheck, emailCheck
 };
