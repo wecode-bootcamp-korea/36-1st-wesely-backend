@@ -21,7 +21,7 @@ const signUp = async (req, res) => {
     }
 };
 
-const login = async (req, res) => {
+const signIn = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -29,7 +29,7 @@ const login = async (req, res) => {
             return res.status(400).json({ message : "KEY_ERROR" });
         }
         
-        const loginResult = await userService.login(email, password);
+        const loginResult = await userService.signIn(email, password);
         return res.status(200).json({ token: loginResult, message : "SUCCESS_LOGIN"});
        
     } catch(err) {
@@ -37,12 +37,13 @@ const login = async (req, res) => {
     }
 };
 
-const emailCheck = async (req, res) => {
+const authRouter = async (req, res) => {
     try {
         const { email } = req.body;
-        const userName = await userService.emailCheck(email);
-
-        if(userName) return res.status(201).json({ message : "CONNECT_LOGIN", name : userName });
+    
+        const {name} = await userService.getNameByEmail(email);
+   
+        if(name) return res.status(201).json({ message : "CONNECT_LOGIN", name : name });
 
         else return res.status(200).json({ message : "CONNECT_SIGNUP" });
     } catch (err) {
@@ -52,5 +53,5 @@ const emailCheck = async (req, res) => {
 
 
 module.exports = {
-    signUp, login, emailCheck
+    signUp, signIn, authRouter
 };

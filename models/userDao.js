@@ -21,7 +21,9 @@ const createUser = async (email, hashedPassword, phone_number, name) => {
         errorHandler();
     }
 };
-const getUserByEmail = async (email) => {
+
+const getPasswordByEmail = async (email) => {
+
     try {
         return await database.query(`
         SELECT  
@@ -33,53 +35,32 @@ const getUserByEmail = async (email) => {
     }
 };
 
-
-const userCheck = async (email) => {
+const emailCheck = async (email) => {
     try {
-
         return await database.query(`
-            SELECT
-            email
-            FROM users
-            WHERE email = "${email}";
-        `)
-    } catch (err) {
-        
-        errorHandler();
-    }
-};
-
-
-const emailCheck = async(email) => {
-    try {
-        const existentEmail = await database.query(`  
         SELECT EXISTS
         (SELECT email FROM users
         WHERE email = "${email}");
         `)
+    } catch (err) {
+        errorHandler();
+    }
+};
 
-        const getName = await database.query(`  
+const getNameByEmail = async(email) => {
+    
+    try {
+        const [name] = await database.query(`  
         SELECT
         name FROM users
         WHERE email = "${email}";
         `)
-        
-       const value = Number(Object.values(existentEmail[0])[0])
-      
-       if (value === 0) {
-        return false;
-       } 
-        return getName;
-
-  
+       return name;
     } catch (err) {
         errorHandler();
     }
-
 };
 
-
-
 module.exports = {
-    createUser, getUserByEmail, userCheck, emailCheck
+    createUser, getPasswordByEmail, emailCheck, getNameByEmail
 };

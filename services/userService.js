@@ -10,7 +10,7 @@ const secretKey = "36";
 
 const signUp = async (email, password, phone_number, name) => {
     
-    const userCheck = await userDao.userCheck(email);
+    const userCheck = await userDao.emailCheck(email);
 
     if(!userCheck){
         const err = new Error('INVALID_USER')
@@ -45,7 +45,6 @@ const signUp = async (email, password, phone_number, name) => {
         err.statusCode = 409
         throw err
     } 
-
     
     const hashedPassword = await bcrypt.hash(password, saltRounds)
 
@@ -55,9 +54,9 @@ const signUp = async (email, password, phone_number, name) => {
 };
 
 
-const login = async (email, password) => {
+const signIn = async (email, password) => {
 
-    const loginUser = await userDao.getUserByEmail(email)
+    const loginUser = await userDao.getPasswordByEmail(email)
 
     const result = await bcrypt.compare(password, loginUser[0].password)
     if(!result) {
@@ -69,13 +68,13 @@ const login = async (email, password) => {
     return jwt.sign(payLoad, secretKey, { expiresIn: "30d"});
 };
 
-const emailCheck = async (email) => {
-        return await userDao.emailCheck(email);
+const getNameByEmail = async (email) => {
+    return await userDao.getNameByEmail(email);
 };
 
 
 
 module.exports = {
-    signUp, login, emailCheck
+    signUp, signIn, getNameByEmail
 };
 
