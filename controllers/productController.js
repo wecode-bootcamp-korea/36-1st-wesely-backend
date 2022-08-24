@@ -15,6 +15,27 @@ const getProducts = async(req, res) => {
     }
 };
 
+const getDetail = async(req, res) => {
+    try{
+        const {productId} = req.params;
+
+        const getDetailByProductId = await productService.getDetailByProductId(productId);
+        const getReviewsByProductId = await productService.getReviewsByProductId(productId);
+        const getReviewDistribution = await productService.getReviewDistribution(productId);
+        const getOptionDataByProductId = await productService.getOptionDataByProductId(productId);
+        
+        return res.status(200).json({
+            optionData: getOptionDataByProductId,
+            productDetail: getDetailByProductId,
+            reviewsData: getReviewsByProductId,
+            reviewsDistribution: getReviewDistribution
+        });
+    } catch (err) {
+        return res.status(err.statusCode||500).json({message: err.message});
+    }
+};
+
 module.exports ={
-    getProducts
+    getProducts,
+    getDetail
 }
