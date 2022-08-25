@@ -3,10 +3,7 @@ const userDao = require('../models/userDao');
 const bcrypt = require('bcrypt');
 const saltRounds = 12;
 
-const payLoad = { foo: 'bar' };
 const jwt = require('jsonwebtoken');
-
-const secretKey = "36";
 
 const signUp = async (email, password, phone_number, name) => {
     
@@ -14,7 +11,7 @@ const signUp = async (email, password, phone_number, name) => {
 
     if(!userCheck){
         const err = new Error('INVALID_USER')
-        err.statusCode = 409
+        err.statusCode = 409 
         throw err
     }
 
@@ -49,13 +46,10 @@ const signUp = async (email, password, phone_number, name) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds)
 
     return await userDao.createUser(email, hashedPassword, phone_number, name)
-
-    
 };
 
-
 const signIn = async (email, password) => {
-
+    const userId = await userDao.getUserIdByEmail(email);
     const loginUser = await userDao.getPasswordByEmail(email)
 
     const result = await bcrypt.compare(password, loginUser[0].password)
@@ -64,15 +58,12 @@ const signIn = async (email, password) => {
         err.statusCode = 409
         throw err
     } 
-   
-    return jwt.sign(payLoad, secretKey, { expiresIn: "30d"});
+    return jwt.sign({ sub: userId, exp: Math.floor(Date.now()/1000) + (600*60) }, process.env.JWT_SECRET);   
 };
 
 const getNameByEmail = async (email) => {
     return await userDao.getNameByEmail(email);
 };
-
-
 
 module.exports = {
     signUp, signIn, getNameByEmail
