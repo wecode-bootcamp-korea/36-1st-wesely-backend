@@ -1,8 +1,8 @@
-const {appDataSource} =require("./dataSource")
+const {MySQLDatabase} =require("./dataSource")
 
 const getAllProducts = async(limit,offset) =>{
     try{
-        return await appDataSource.query(`
+        return await MySQLDatabase.query(`
         SELECT
             COUNT(r.rating) AS countRating,
             AVG(r.rating) AS avgRating,
@@ -30,7 +30,7 @@ const getAllProducts = async(limit,offset) =>{
 
 const getProductsByCategory = async(categoryId,limit, offset)=>{
     try{
-        return await appDataSource.query(`
+        return await MySQLDatabase.query(`
         SELECT
             COUNT(r.rating) AS countRating,
             AVG(r.rating) AS avgRating,
@@ -59,7 +59,7 @@ const getProductsByCategory = async(categoryId,limit, offset)=>{
 
 const getProductsByRating = async()=>{
     try{
-        return await appDataSource.query(`
+        return await MySQLDatabase.query(`
         SELECT
             COUNT(r.rating) AS countRating,
             AVG(r.rating) AS avgRating,
@@ -82,7 +82,7 @@ const getProductsByRating = async()=>{
 
 const getProductsBySales = async()=>{
     try{
-        return await appDataSource.query(`
+        return await MySQLDatabase.query(`
         SELECT
             COUNT(r.rating) AS countRating,
             AVG(r.rating) AS avgRating,

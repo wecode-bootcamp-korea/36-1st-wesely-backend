@@ -1,4 +1,4 @@
-const { database } = require('./database');
+const { MySQLDatabase } = require('./database');
 
 const errorHandler = () => {
     const err = new Error('INVALID_DATA_INPUT');
@@ -8,7 +8,7 @@ const errorHandler = () => {
  
 const createUser = async (email, hashedPassword, phone_number, name) => {
     try{
-        return await database.query(`    
+        return await MySQLDatabase.query(`    
             INSERT INTO users (
                 email,
                 password,
@@ -25,7 +25,7 @@ const createUser = async (email, hashedPassword, phone_number, name) => {
 const getPasswordByEmail = async (email) => {
 
     try {
-        return await database.query(`
+        return await MySQLDatabase.query(`
         SELECT  
         password FROM users
         WHERE email = "${email}";
@@ -37,7 +37,7 @@ const getPasswordByEmail = async (email) => {
 
 const emailCheck = async (email) => {
     try {
-        return await database.query(`
+        return await MySQLDatabase.query(`
         SELECT EXISTS
         (SELECT email FROM users
         WHERE email = "${email}");
@@ -50,7 +50,7 @@ const emailCheck = async (email) => {
 const getNameByEmail = async(email) => {
     
     try {
-        const [name] = await database.query(`  
+        const [name] = await MySQLDatabase.query(`  
         SELECT
         name FROM users
         WHERE email = "${email}";
