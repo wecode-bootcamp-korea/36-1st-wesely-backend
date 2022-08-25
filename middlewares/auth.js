@@ -7,7 +7,7 @@ const validationToken = async(req, res, next) => {
         const accessToken = headers.split(" ")[1];
         const decode = jwt.verify(accessToken, process.env.JWT_SECRET);
         const userId = decode.sub;
-        const user = await userDao.getNameByEmail(userId);
+        const user = await userDao.getNameByEmail(email);
 
         if(!user) {
             res.status(400).json({message: "USER_NOT_FOUND"})
