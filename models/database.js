@@ -9,13 +9,14 @@ const MySQLDatabase = new DataSource({
   database: process.env.TYPEORM_DATABASE
 })
 
-MySQLDatabase.initialize()
+const initialize = MySQLDatabase
+.initialize()
 .then(() => {
   console.log("DataSource has been initialized");
 })
 .catch((err) => {
   console.log("Error occurred during initialization", err);
-  MySQLDatabase.destroy();
+  myDataSource.destroy();
 });
 
 module.exports = {
