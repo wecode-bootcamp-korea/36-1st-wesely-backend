@@ -1,6 +1,6 @@
 const {MySQLDatabase} =require("./dataSource")
 
-const getAllProducts = async(limit,offset) =>{
+const getAllProducts = async(ordering,limit,offset) =>{
     try{
         return await MySQLDatabase.query(`
         SELECT
@@ -17,7 +17,7 @@ const getAllProducts = async(limit,offset) =>{
         FROM reviews r
         LEFT JOIN products p ON p.id=r.product_id
         LEFT JOIN products_information i ON r.product_id=i.id
-        GROUP BY product_id ORDER BY countRating DESC
+        GROUP BY product_id ORDER BY ${ordering} DESC
         LIMIT ${limit} OFFSET ${offset}
         `);
     }
@@ -28,7 +28,7 @@ const getAllProducts = async(limit,offset) =>{
     }
 };
 
-const getProductsByCategory = async(categoryId,limit, offset)=>{
+const getProductsByCategory = async(categoryId,ordering,limit, offset)=>{
     try{
         return await MySQLDatabase.query(`
         SELECT
@@ -46,7 +46,7 @@ const getProductsByCategory = async(categoryId,limit, offset)=>{
         LEFT JOIN products p ON p.id=r.product_id
         LEFT JOIN products_information i ON r.product_id=i.id
         WHERE p.category_id=${categoryId}
-        GROUP BY product_id ORDER BY countRating DESC
+        GROUP BY product_id ORDER BY ${ordering} DESC
         LIMIT ${limit} OFFSET ${offset}
         `);
     }

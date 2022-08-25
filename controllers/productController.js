@@ -2,13 +2,13 @@ const productService = require('../services/productService')
 
 const getProducts = async(req, res) => {
     try{
-        const {categoryId, limit, offset} = req.query
+        const {categoryId, ordering, limit, offset} = req.query
 
         if(categoryId){
-            const getProductsByCategory = await productService.getProductsByCategory(categoryId, limit, offset);
+            const getProductsByCategory = await productService.getProductsByCategory(categoryId,ordering, limit, offset);
             return res.status(200).json(getProductsByCategory);
         }
-        const getAllProducts = await productService.getAllProducts(limit, offset);
+        const getAllProducts = await productService.getAllProducts(ordering, limit, offset);
         return res.status(200).json(getAllProducts);
         
     } catch (err) {
