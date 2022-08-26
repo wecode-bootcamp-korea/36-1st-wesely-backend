@@ -41,9 +41,9 @@ const authRouter = async (req, res) => {
     try {
         const { email } = req.body;
     
-        const {name} = await userService.getNameByEmail(email);
+        const name = await userService.getNameByEmail(email);
    
-        if(name) return res.status(201).json({ message : "CONNECT_LOGIN", name : name });
+        if(name.length != 0) return res.status(201).json({ message : "CONNECT_LOGIN", name : name });
 
         else return res.status(200).json({ message : "CONNECT_SIGNUP" });
     } catch (err) {

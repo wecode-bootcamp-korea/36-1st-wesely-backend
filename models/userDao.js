@@ -1,4 +1,4 @@
-const {appDataSource} =require("./dataSource")
+const {MySQLDatabase} =require("./database")
 
 const errorHandler = () => {
     const err = new Error('INVALID_DATA_INPUT');
@@ -8,7 +8,7 @@ const errorHandler = () => {
  
 const createUser = async (email, hashedPassword, phone_number, name) => {
     try{
-        return await appDataSource.query(`    
+        return await MySQLDatabase.query(`    
             INSERT INTO users (
                 email,
                 password,
@@ -25,7 +25,7 @@ const createUser = async (email, hashedPassword, phone_number, name) => {
 const getPasswordByEmail = async (email) => {
 
     try {
-        return await appDataSource.query(`
+        return await MySQLDatabase.query(`
         SELECT  
         password FROM users
         WHERE email = "${email}";
@@ -38,7 +38,7 @@ const getPasswordByEmail = async (email) => {
 const getUserIdByEmail = async (email) => {
 
     try {
-        return await appDataSource.query(`
+        return await MySQLDatabase.query(`
         SELECT  
         id FROM users
         WHERE email = "${email}";
@@ -50,7 +50,7 @@ const getUserIdByEmail = async (email) => {
 
 const emailCheck = async (email) => {
     try {
-        return await appDataSource.query(`
+        return await MySQLDatabase.query(`
         SELECT EXISTS
         (SELECT email FROM users
         WHERE email = "${email}");
@@ -63,7 +63,7 @@ const emailCheck = async (email) => {
 const getNameByEmail = async(email) => {
     
     try {
-        const [name] = await appDataSource.query(`  
+        const name = await MySQLDatabase.query(`  
         SELECT
         name FROM users
         WHERE email = "${email}";
@@ -75,7 +75,7 @@ const getNameByEmail = async(email) => {
 };
 
 const getUserById = async (id) => {
-    const [user] = await appDataSource.query(
+    const [user] = await MySQLDatabase.query(
       `
         SELECT *
         FROM users u
