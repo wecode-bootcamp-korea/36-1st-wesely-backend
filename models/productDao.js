@@ -1,4 +1,4 @@
-const {MySQLDatabase} =require("./dataSource")
+const {MySQLDatabase} =require("./database")
 
 const getAllProducts = async(ordering,limit,offset) =>{
     try{

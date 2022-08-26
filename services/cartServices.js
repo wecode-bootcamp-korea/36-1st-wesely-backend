@@ -1,9 +1,9 @@
 const cartDao = require('../models/cartDao')
 
 
-const getCartListAll = async ( user_id ) => {
+const getCartListAll = async ( userId ) => {
 
-  const checkId = await cartDao.cartCheckUser( user_id )
+  const checkId = await cartDao.cartCheckUser( userId )
   const cartIdCheck = await Number(Object.values(checkId[0])[0])
 
   const cartEnum = Object.freeze({
@@ -17,21 +17,22 @@ const getCartListAll = async ( user_id ) => {
     throw error
   }
 
-  const listAll = await cartDao.cartListAll( user_id );
+  const listAll = await cartDao.cartListAll( userId );
   console.log(listAll);
   return listAll;
 };
 
-const deleteCartProduct = async ( user_id, image_id ) => {
-  const listDelete = await cartDao.deleteCartList( user_id, image_id );
+const deleteCartProduct = async ( userId, imageId ) => {
+  const listDelete = await cartDao.deleteCartList( userId, imageId );
   return listDelete;
 }
 
-const countPlus = async ( user_id, image_id ) => {
-  const checkProductStock = await cartDao.checkStock( image_id );
+const countPlus = async ( userId, imageId ) => {
+  console.log(userId, imageId)
+  const checkProductStock = await cartDao.checkStock( imageId );
   const productStock = await Number(Object.values(checkProductStock[0])[0]);
   console.log(productStock)
-  const checkQuantity = await cartDao.checkQuantity( image_id );
+  const checkQuantity = await cartDao.checkQuantity( imageId );
   const cartQuantity = await Number(Object.values(checkQuantity[0])[0]);
   console.log(cartQuantity)
   const limit = (productStock < cartQuantity);
@@ -41,21 +42,22 @@ const countPlus = async ( user_id, image_id ) => {
     error.statusCode = 409;
     throw error
   }
-  const count = await cartDao.cartQuantityPlus( user_id, image_id );
+  const count = await cartDao.cartQuantityPlus( userId, imageId );
   return count;
 }
 
-const countMinus = async ( user_id, image_id ) => {
-  const count = await cartDao.cartQuantityMinus( user_id, image_id );
+const countMinus = async ( userId, imageId ) => {
+  const count = await cartDao.cartQuantityMinus( userId, imageId );
   return count;
 }
 
-const getOrderInfo = async (  user_id, image_id,  point, subscription_id, ) => {
+const getOrderInfo = async (  userId, imageId,  point, subscriptionId, ) => {
 
-  const orderInfo = await cartDao.getOrderInfo( user_id );
-  const order = await cartDao.getInfo(  user_id, image_id );
-  const subscription = await cartDao.subscriptionUpdate( user_id, image_id, subscription_id, point);
-  const pointUpdate = await cartDao.pointUpdate(  user_id, point);
+  const orderInfo = await cartDao.getOrderInfo( userId );
+  const order = await cartDao.getInfo(  userId, imageId );
+ 
+  const subscription = await cartDao.subscriptionUpdate( userId, imageId, subscriptionId, point);
+  const pointUpdate = await cartDao.pointUpdate(  userId, point);
   return pointUpdate;
 }
 

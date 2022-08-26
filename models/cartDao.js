@@ -1,4 +1,4 @@
-const { MySQLDatabase } = require("./Database");
+const { MySQLDatabase } = require("./database");
 
 const errorFunc = (value, str) => {
   const error = new Error(str);
@@ -6,7 +6,7 @@ const errorFunc = (value, str) => {
   throw error;
 }
 
-const cartListAll = async ( user_id ) => {
+const cartListAll = async ( userId ) => {
   try {
     return await MySQLDatabase.query(
       `
@@ -17,18 +17,20 @@ const cartListAll = async ( user_id ) => {
       i.options,
       i.image_url as image_url,
       p.price,
-      p.name
+      p.name,
+      u.point
       from images i
       left join carts c on c.image_id=i.id
       left join products_images pi on pi.image_id=i.id
       left join products p on p.id=pi.product_id
+      left join users u on u.id = c.user_id
       left join
       (select
       image_id,
       SUM(quantity) AS totalQuantity
       from carts GROUP BY image_id) AS total
       ON total.image_id=i.id
-      where c.user_id = ${user_id}
+      where c.user_id = ${userId}
       `,
     )
   }
@@ -37,11 +39,11 @@ const cartListAll = async ( user_id ) => {
 	}	
 }
 
-const deleteCartList = async ( user_id, image_id ) => {
+const deleteCartList = async ( userId, imageId ) => {
   try {
     return await MySQLDatabase.query(
       `
-      DELETE FROM carts c WHERE c.user_id = ${ user_id } AND c.image_id=${ image_id }
+      DELETE FROM carts c WHERE c.user_id = ${ userId } AND c.image_id=${ imageId }
       `,
     )
   }
@@ -50,13 +52,13 @@ const deleteCartList = async ( user_id, image_id ) => {
   }
 }
 
-const cartCheckUser = (user_id) => {
+const cartCheckUser = (userId) => {
   try {
     return MySQLDatabase.query(
       `
       SELECT EXISTS 
       (SELECT * FROM carts c 
-        WHERE c.user_id = ${user_id}); 
+        WHERE c.user_id = ${userId}); 
       
       `
     )
@@ -65,14 +67,14 @@ const cartCheckUser = (user_id) => {
   }
 }
 
-const cartQuantityPlus = ( user_id, image_id ) => {
-  console.log(user_id,image_id)
+const cartQuantityPlus = ( userId, imageId ) => {
+
   try {
     return MySQLDatabase.query(
       `
       update carts c
       set c.quantity = c.quantity + "1"
-      where c.user_id=${user_id} and c.image_id=${image_id} 
+      where c.user_id=${userId} and c.image_id=${imageId} 
       LIMIT 1
       `
     )
@@ -81,13 +83,13 @@ const cartQuantityPlus = ( user_id, image_id ) => {
   }
 }
 
-const cartQuantityMinus = ( user_id, image_id ) => {
+const cartQuantityMinus = ( userId, imageId ) => {
   try {
     return MySQLDatabase.query(
       `
       update carts c
       set c.quantity = c.quantity - 1
-      where c.image_id=${image_id} and c.user_id=${user_id}
+      where c.image_id=${imageId} and c.user_id=${userId}
       LIMIT 1
       `
     )
@@ -96,7 +98,7 @@ const cartQuantityMinus = ( user_id, image_id ) => {
   }
 }
 
-const checkStock = ( image_id ) => {
+const checkStock = ( imageId ) => {
   try {
     return MySQLDatabase.query(
       `
@@ -104,7 +106,7 @@ const checkStock = ( image_id ) => {
       LEFT JOIN products p on pi.id = p.product_information_id
       LEFT JOIN  images p2 on p2.id = p.id
       LEFT JOIN carts c on c.image_id = p2.id
-      where c.image_id = ${ image_id }
+      where c.image_id = ${ imageId }
       `
     )
   } catch {
@@ -113,48 +115,48 @@ const checkStock = ( image_id ) => {
 }
 
 
-const checkQuantity = (image_id) => {
+const checkQuantity = (imageId) => {
   return MySQLDatabase.query(
     `
     select sum(quantity) as quantity  
-    from carts c WHERE image_id=${image_id}
+    from carts c WHERE image_id=${imageId}
     `
   )
 }
 
-const getOrderInfo = (user_id) => {
+const getOrderInfo = (userId) => {
 
   try {
     return MySQLDatabase.query(
       `
       INSERT INTO order_items(cart_id, image_id, quantity)
-      (SELECT id, image_id, quantity from carts where user_id=${user_id})
+      (SELECT id, image_id, quantity from carts where user_id=${userId})
       `
   )}catch {
     errorFunc(404, "INVALID_DAT1A_INPUT")
   }
 } 
 
-const getInfo = (user_id) => {
+const getInfo = (userId) => {
   try {
     return MySQLDatabase.query(
       `
       INSERT INTO orders(user_id, order_item_id)
       (SELECT c.user_id, oi.id
       from carts c
-      left join order_items oi on c.id=oi.cart_id where user_id = ${user_id})
+      left join order_items oi on c.id=oi.cart_id where user_id = ${userId})
       `,
   )}catch {
     errorFunc(404, "INVALID_DATA_INPUT")
   }
 } 
 
-const subscriptionUpdate = (subscription_id, user_id) => {
+const subscriptionUpdate = (userId, subscriptionId ) => {
   try {
     return MySQLDatabase.query(
       `
-      update orders set subscription_id = ? where user_id = ${user_id}
-`, [subscription_id]
+      update orders set subscription_id = ? where user_id = ${userId}
+`, [subscriptionId]
   )}catch(err) {
     console.log(err)
     errorFunc(404, "INVALID_DATA_INPUT")
@@ -163,26 +165,26 @@ const subscriptionUpdate = (subscription_id, user_id) => {
 }
 
 
-const pointUpdate = ( user_id, point) => {
-  console.log(user_id, point)
+const pointUpdate = ( userId, point) => {
+  console.log(userId, point)
   try{
   return MySQLDatabase.query(
         `
         UPDATE users 
         SET point = ? 
         WHERE users.id = ?
-      `, [point, user_id]
+      `, [point, userId]
   )}catch(err) {
     console.log(err)
     errorFunc(404, "INVALID_DATA_INPUT")
   }
 }
 
-const deleteCart = (user_id) => {
+const deleteCart = (userId) => {
   try {
       return MySQLDatabase.query(
         `
-      delete from carts where user_id = ${user_id}; 
+      delete from carts where user_id = ${userId}; 
       `) 
   }catch(err) {
     console.log(err)
