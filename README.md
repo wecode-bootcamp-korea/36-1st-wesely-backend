@@ -16,6 +16,11 @@
   * BE : 박명호, 이솔, 정재하
   - [프론트엔드 github 링크](https://github.com/wecode-bootcamp-korea/36-1st-wesely-frontend)
 
+### 1차 프로젝트 회고록
+- [박명호](https://seatbelt.tistory.com/118)
+- [이솔]()
+- [정재하]()
+
 <br>
 
 ## 적용 기술 및 구현 기능
