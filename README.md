@@ -55,6 +55,7 @@
     - 회원가입
   * 정재하 [(github링크)](https://github.com/JeongJaeHa)
     - 장바구니 페이지
+---
 
 ### 상세 내용
 
