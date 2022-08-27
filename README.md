@@ -1,4 +1,4 @@
-# WECODE 36기 1차 프로젝트
+# [TEAM_WESELY]WECODE 36기 1차 프로젝트
 
 ## 프로젝트 소개
 - 제목 : 생활용품 정기구독 사이트 [WISELY](https://www.wiselycompany.com/home/main)클론 프로젝트
