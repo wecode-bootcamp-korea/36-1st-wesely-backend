@@ -27,13 +27,13 @@
 > - Common : JavaScript
 
 ### 구현 기능
-  *  박명호[github링크](https://github.com/seatbelt92)
+  *  박명호 [(github링크)](https://github.com/seatbelt92)
     - 홈 화면
     - 제품 페이지
-  * 이솔[github링크](https://github.com/isol78)
+  * 이솔 [(github링크)](https://github.com/isol78)
     - 로그인
     - 회원가입
-  * 정재하[github링크](https://github.com/JeongJaeHa)
+  * 정재하 [(github링크)](https://github.com/JeongJaeHa)
     - 장바구니 페이지
 
 <br>
