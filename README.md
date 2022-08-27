@@ -19,7 +19,7 @@
 ### 1차 프로젝트 회고록
 - [박명호](https://seatbelt.tistory.com/118)
 - [이솔]()
-- [정재하]()
+- [정재하](https://jaeha2324.tistory.com/29)
 
 <br>
 
@@ -27,9 +27,24 @@
 
 ### 적용 기술
 
-> - Front-End : React.js, Sass
-> - Back-End : Node.js, Express, MySQL, Bcrypt, JWT
-> - Common : JavaScript
+- 프론트엔드 : <img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=javascript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React.js-58c3cc?style=flat-square&logo=React&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Sass-58c3cc?style=flat-square&logo=Sass&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React.js-58c3cc?style=flat-square&logo=React&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CRA-58c3cc?style=flat-square&logo=Create-React-App&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React Router Dom-gray?style=flat-square&logo=React-Router&logoColor=F6BB43"/>
+  <img src="https://img.shields.io/badge/scss-4AA8D8?style=flat-square&logo=Sass&logoColor=white"/>
+  <img src="https://img.shields.io/badge/eslint-000066?style=flat-square&logo=eslint&logoColor=white"/>
+  <img src="https://img.shields.io/badge/prettier-00CC00?style=flat-square&logo=eslint&logoColor=white"/>
+- 백엔드 : <img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=javascript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Node.js-008000?style=flat-square&logo=Node.js&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Express-000080?style=flat-square&logo=Express&logoColor=white"/>
+  <img src="https://img.shields.io/badge/ MySQL8.0-6441a5?style=flat-square&logo=MySQL&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Postman-F6BB43?style=flat-square&logo=Postman&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Bcrypt-F6BB43?style=flat-square&logo=Bcrypt&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JWT-F6BB43?style=flat-square&logo=JWT&logoColor=white"/>
+- 협업 툴 : <img src="https://img.shields.io/badge/Notion-1c1c1c?style=flat-square&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Slack-553830?style=flat-square&logo=Slack&logoColor=white"/> <img src="https://img.shields.io/badge/Gather-8B00F?style=flat-square&logo=Gather&logoColor=white"/>
+
 
 ### 구현 기능
   * 박명호 [(github링크)](https://github.com/seatbelt92)
